@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ButtonWrapper } from '../buttonWrapper';
+import { ButtonWrapper, SliderButtonWrapper } from '../buttonWrapper';
 import { ProductListContext } from '../centralized_context';
 
 class CartItem extends Component {
@@ -17,7 +17,7 @@ class CartItem extends Component {
                 <div className="col-10 mx-auto col-lg-2">
                     <img
                         src={image_url}
-                        style={{ widht: "5rem", height: "5rem" }}
+                        style={{ width: "auto", height: "5rem" }}
                         className="image_url-fluid"
                         alt="product"
                     />
@@ -33,13 +33,13 @@ class CartItem extends Component {
                 <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0">
                     <div className="d-flex justify-content-center">
                         <div>
-                            <span className="btn btn-black mx-1"
+                            <SliderButtonWrapper className=" mx-1"
                                 onClick={() => decrement(id)}> -
-            </span>
-                            <span className="btn btn-black mx-1">{count}</span>
-                            <span className="btn btn-black mx-1"
+            </SliderButtonWrapper>
+                            <span className=" mx-1">{count}</span>
+                            <SliderButtonWrapper className=" mx-1"
                                 onClick={() => increment(id)}> +
-            </span>
+            </SliderButtonWrapper>
                         </div>
                     </div>
                 </div>

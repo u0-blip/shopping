@@ -5,3 +5,16 @@
   --mainDark: #232528;
   --mainYellow: #ffa400;
 }
+
+body {
+  background: var(--mainWhite) !important;
+  color: var(--mainDark) !important;
+}
+
+.text-blue {
+  color: var(--mainBlue);
+}
+
+.text-bright {
+  color: var(--lightBlue);
+}

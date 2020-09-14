@@ -13,7 +13,10 @@ class ContextProduct extends Component {
         cart: {
             '1984': {
                 count: 1,
-            }
+            },
+            'Pride and Prejudice': {
+                count: 2,
+            },
         },
         cartPrice: {
             cartSubTotal: 0,

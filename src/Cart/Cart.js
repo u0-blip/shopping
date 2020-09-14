@@ -12,12 +12,12 @@ export class Cart extends Component {
     render() {
         const { cart } = this.context;
         return (
-            <>
+            <div className='container'>
                 <Title name="your" title="cart" />
                 <CartColumns />
                 <CartList />
                 <CartTotals history={this.props.history} />
-            </>
+            </div>
         );
     }
 }

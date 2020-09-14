@@ -25,3 +25,19 @@ export const ButtonWrapper = styled.button`
     outline: none;
     }
 `
+
+export const SliderButtonWrapper = styled.button`
+.btn-black {
+    background: transparent;
+    text-transfor: capitalize;
+    font-size: 1.5rem !important;
+    color: var(--mainDark);
+    border-radius: 0 !important;
+    border: 0.1rem solid var(--mainDark) !important;
+  }
+  
+  .btn-black:hover {
+    background: var(--mainDark) !important;
+    color: var(--mainWhite) !important;
+  }
+`
