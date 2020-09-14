@@ -6,7 +6,8 @@ import Home from './home/Home';
 import Details from './Details/Details';
 import Cart from './Cart/Cart';
 import Axios from 'axios';
-import { ContextProvider } from './centralized_context';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ContextProduct, ContextShopping } from './centralized_context';
 
 
 function App() {
@@ -14,18 +15,18 @@ function App() {
 
   return (
 
-    <ContextProvider>
-      <Fragment>
-        <Router>
-          <Navbar />
-          <Switch>
+    <Fragment>
+      <Router>
+        <Navbar />
+        <Switch>
+          <ContextProduct>
             <Route exact path='/' component={Home} />
             <Route exact path='/details' component={Details} />
             <Route exact path='/cart' component={Cart} />
-          </Switch>
-        </Router>
-      </Fragment>
-    </ContextProvider>
+          </ContextProduct>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 

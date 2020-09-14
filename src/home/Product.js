@@ -7,12 +7,12 @@ export class Product extends Component {
     static contextType = ProductListContext;
 
     render() {
-        const { Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart, value } = this.props.product;
+        const { Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.props.product;
         return (
             <>
                 <div
                     className="img-container p-5"
-                    onClick={() => value.handleDetail(Name)}
+                    onClick={() => this.context.handleDetail(Name)}
                 >
                     <Link to="/details">
                         <img src={image_url} alt="product" className="card-img-top" style={{ width: '100px', height: '100px' }} />
@@ -22,8 +22,8 @@ export class Product extends Component {
                         className="cart-btn"
                         disabled={inCart ? true : false}
                         onClick={() => {
-                            value.addToCart(Name);
-                            value.openModal(Name);
+                            this.context.addToCart(Name);
+                            this.context.openModal(Name);
                         }}
                     >
                         {inCart ? (
