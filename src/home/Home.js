@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ProductListContext } from '../centralized_context'
+import Modal from '../Details/Modal';
 import Product from './Product'
 
 
@@ -15,6 +16,7 @@ export class Home extends Component {
                 <div className='row'>
                     {productRows}
                 </div>
+                <Modal />
             </div>
         )
     }

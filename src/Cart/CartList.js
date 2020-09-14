@@ -32,15 +32,13 @@ class CartItem extends Component {
                 </div>
                 <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0">
                     <div className="d-flex justify-content-center">
-                        <div>
-                            <SliderButtonWrapper className=" mx-1"
-                                onClick={() => decrement(id)}> -
-            </SliderButtonWrapper>
-                            <span className=" mx-1">{count}</span>
-                            <SliderButtonWrapper className=" mx-1"
-                                onClick={() => increment(id)}> +
-            </SliderButtonWrapper>
-                        </div>
+                        <SliderButtonWrapper className=" mx-1"
+                            onClick={() => decrement(id)}> -
+                            </SliderButtonWrapper>
+                        <span className=" mx-1">{count}</span>
+                        <SliderButtonWrapper className=" mx-1"
+                            onClick={() => increment(id)}> +
+                            </SliderButtonWrapper>
                     </div>
                 </div>
                 <div className="col-10 mx-auto col-lg-2">

@@ -23,20 +23,25 @@ class ContextProduct extends Component {
             cartTax: 0,
             cartTotal: 0
         },
+        modalProduct: null,
         modalOpen: false,
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // get the data from local server
-        Axios.get('/product')
-            .then((res) => {
-                let data = res.data;
-                let data_dict = {};
-                data.forEach((d) => {
-                    data_dict[d.id] = d;
-                })
-                this.setState({ products: data_dict })
-            })
+
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(Axios.get('/product')), 1000)
+        });
+
+        let res = await promise;
+
+        let data = res.data;
+        let data_dict = {};
+        data.forEach((d) => {
+            data_dict[d.id] = d;
+        })
+        this.setState({ products: data_dict })
     }
 
     handleDetail() {
@@ -45,12 +50,19 @@ class ContextProduct extends Component {
     addToCart() {
 
     }
-    openModal() {
-
+    openModal = (id) => {
+        const product = this.state.products[id];
+        this.setState(() => {
+            return { modalProduct: product, modalOpen: true };
+        })
     }
-    closeModal() {
 
+    closeModal = () => {
+        this.setState(() => {
+            return { modalOpen: false };
+        })
     }
+
     increment() {
 
     }
