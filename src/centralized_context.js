@@ -10,12 +10,15 @@ const ShoppingContext = React.createContext();
 class ContextProduct extends Component {
     state = {
         products: {},
-        cart: ['1984'],
+        cart: {
+            '1984': {
+                count: 1,
+            }
+        },
         cartPrice: {
             cartSubTotal: 0,
             cartTax: 0,
             cartTotal: 0
-
         },
         modalOpen: false,
     }

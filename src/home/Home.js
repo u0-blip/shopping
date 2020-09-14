@@ -7,8 +7,8 @@ export class Home extends Component {
     static contextType = ProductListContext;
     render() {
         var productRows = [];
-        for (const [_, product] of Object.entries(this.context.products)) {
-            productRows.push(<Product key={product.id} product={product} />)
+        for (const [id, product] of Object.entries(this.context.products)) {
+            productRows.push(<Product key={id} product={product} />)
         }
         return (
             <>
