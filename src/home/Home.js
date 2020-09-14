@@ -11,9 +11,11 @@ export class Home extends Component {
             productRows.push(<Product key={id} product={product} />)
         }
         return (
-            <>
-                {productRows}
-            </>
+            <div className='container' style={{ justifyContent: "left" }}>
+                <div className='row'>
+                    {productRows}
+                </div>
+            </div>
         )
     }
 }
