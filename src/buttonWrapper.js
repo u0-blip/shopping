@@ -1,17 +1,13 @@
 import styled from 'styled-components'
 
 export const ButtonWrapper = styled.button`
-    text-transform: capitalize;
+    display: inline-block;
     font-size: 1.4rem;
     background:transparent;
-    border: 0.05rem solid var(--lightBlue);
-    border-color: ${props =>
-        props.cart ? "var(--mainYellow)" : "var(--lightBlue)"
-    }
-    color: ${prop =>
-        prop.cart ? "var(--mainYellow)" : "var(--lightBlue)"
-    }
-    border-radius: 05rem;
+    border: 0.05rem solid transparent;
+    color: #17a2b8;
+    border-color: #17a2b8;
+    border-radius: .25rem;
     padding: 0.2rem 0.5rem;
     cursor: pointer;
     margin: 0.2rem 0.5rem 0.2rem 0;
