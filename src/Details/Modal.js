@@ -38,14 +38,12 @@ export default class Modal extends Component {
         const { id, image_url, Name, Price } = this.context.modalProduct;
 
         let info;
-
-        console.log(id, this.context.cart)
         if (this.context.cart[id] != null) {
             info = this.context.cart[id];
         } else {
             info = this.context.cart['default'];
         }
-        const { increment, decrement, removeItem, addToCart } = this.context;
+        const { increment, decrement, removeFromCart, addToCart } = this.context;
 
         return <ModalWrapper>
             <div className="container">

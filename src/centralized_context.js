@@ -78,8 +78,7 @@ class ContextProduct extends Component {
 
         this.setState(() => {
             return { cart: { ...this.state.cart, [id]: instance } }
-        })
-        this.updateTotals();
+        }, () => this.updateTotals())
     }
 
     updateTotals = () => {
@@ -145,12 +144,27 @@ class ContextProduct extends Component {
         );
     }
 
-    removeFromCart = () => {
+    removeFromCart = (id) => {
+        const cart = this.state.cart;
+        delete cart[id];
 
+        this.setState(() => {
+            return {
+                cart: { ...cart },
+            }
+        }, () => {
+            this.updateTotals();
+        })
     }
+
     clearCart = () => {
-
+        this.setState(() => {
+            return { cart: {} };
+        }, () => {
+            this.updateTotals();
+        })
     }
+
     render() {
         return (
             <ProductListContext.Provider value={

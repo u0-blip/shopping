@@ -13,35 +13,32 @@ export class Product extends Component {
         <div
           className="img-container p-5"
         >
-          <Link to={{ pathname: `/products/${id}` }}>
-            <img src={image_url} alt="product" className="card-img-top" />
-          </Link>
+          <img src={image_url} alt="product" className="card-img-top"
+            onClick={() => {
+              this.context.openModal(Name);
+            }} />
 
           <button
             className="cart-btn"
-            disabled={inCart ? true : false}
             onClick={() => {
               this.context.openModal(Name);
             }}
           >
-            {inCart ? (
-              <p className="text-capitalize mb-0" disabled>
-                In Cart
-              </p>
-            ) : (
-                <i className="fas fa-cart-plus" />
-              )}
+
+            <i className="fas fa-cart-plus" />
           </button>
         </div>
-        <div className="card-footer d-flex justify-content-between">
-          <p className="align-self-center mb-0">
-            {Name}
-          </p>
-          <h5 className="text-blue font-italic mb-0">
-            <span className="mr-1">$</span>
-            {Price}
-          </h5>
-        </div>
+        <Link to={{ pathname: `/products/${id}` }}>
+          <div className="card-footer d-flex justify-content-between">
+            <p className="align-self-center mb-0">
+              {Name}
+            </p>
+            <h5 className="text-blue font-italic mb-0">
+              <span className="mr-1">$</span>
+              {Price}
+            </h5>
+          </div>
+        </Link>
       </ProductWrapper>
     )
   }
