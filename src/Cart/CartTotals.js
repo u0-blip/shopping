@@ -5,6 +5,12 @@ import { ProductListContext } from '../centralized_context';
 export class CartTotals extends Component {
     static contextType = ProductListContext;
 
+    constructor(props, context) {
+        super(props, context)
+        const { updateTotals } = this.context;
+        updateTotals();
+    }
+
     render() {
         const { cartSubTotal, cartTax, cartTotal } = this.context.cartPrice;
         const { clearCart } = this.context;

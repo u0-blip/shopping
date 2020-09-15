@@ -6,11 +6,13 @@ class CartItem extends Component {
     static contextType = ProductListContext;
 
     render() {
-        const { id, Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.props.item;
+        if (!this.props.item || this.props.info.count < 1) {
+            return <div />
+        }
+        const { id, Name, Descriptioin, Page_count, Characters, Author, Genres, image_url, inCart } = this.props.item;
 
-        const { count } = this.props.info;
-        const { total } = this.context.cartPrice;
-        const { increment, decrement, removeItem } = this.context;
+        const { count, Price } = this.props.info;
+        const { increment, decrement, removeItem, addToCart } = this.context;
 
         return (
             <div className="row my-2 text-capitalize text-center">
@@ -33,23 +35,29 @@ class CartItem extends Component {
                 <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0">
                     <div className="d-flex justify-content-center">
                         <SliderButtonWrapper className=" mx-1"
-                            onClick={() => decrement(id)}> -
+                            onClick={() => {
+                                decrement(id);
+                                addToCart(id);
+                            }}> -
                             </SliderButtonWrapper>
                         <span className=" mx-1">{count}</span>
                         <SliderButtonWrapper className=" mx-1"
-                            onClick={() => increment(id)}> +
+                            onClick={() => {
+                                increment(id);
+                                addToCart(id);
+                            }}> +
                             </SliderButtonWrapper>
                     </div>
                 </div>
                 <div className="col-10 mx-auto col-lg-2">
                     <ButtonWrapper className="cart-icon" onClick={() => removeItem(id)}>
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
                         </svg>
                     </ButtonWrapper>
                 </div>
                 <div className="col-10 mx-auto col-lg-2">
-                    <strong>item total: $ {total}</strong>
+                    <strong>item total: $ {count * Price}</strong>
                 </div>
             </div>
         )
@@ -61,16 +69,15 @@ export class CartList extends Component {
 
     render() {
         const { cart, products } = this.context;
-        let product_wait = Object.keys(products).length === 0;
         let CartRows = []
+
         for (const [id, info] of Object.entries(cart)) {
             CartRows.push(<CartItem key={id} item={products[id]} info={info} />)
         }
 
-        return (
-            !product_wait ? <div className='container-fluid'>
-                {CartRows}
-            </div> : <div />
+        return (<div className='container-fluid'>
+            {CartRows}
+        </div>
         )
     }
 }

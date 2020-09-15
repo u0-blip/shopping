@@ -6,6 +6,28 @@ import { ProductListContext } from '../centralized_context';
 
 export default class Modal extends Component {
     static contextType = ProductListContext;
+
+    constructor(props) {
+        super(props);
+        this.escFunction = this.escFunction.bind(this);
+    }
+
+    escFunction(event) {
+        if (event.keyCode === 27) {
+            this.context.closeModal();
+        }
+    }
+    componentDidMount() {
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.escFunction, false);
+    }
+
+    handleClose() {
+        const { closeModal } = this.context;
+        closeModal();
+    }
     render() {
         const { modalOpen, closeModal } = this.context;
 
@@ -15,18 +37,20 @@ export default class Modal extends Component {
 
         const { id, image_url, Name, Price } = this.context.modalProduct;
 
-        let count;
-        if (this.context.cart.id != null) {
-            count = this.context.cart.id.count;
+        let info;
+
+        console.log(id, this.context.cart)
+        if (this.context.cart[id] != null) {
+            info = this.context.cart[id];
         } else {
-            count = 0;
+            info = this.context.cart['default'];
         }
-        const { total } = this.context.cartPrice;
-        const { increment, decrement, removeItem } = this.context;
+        const { increment, decrement, removeItem, addToCart } = this.context;
 
         return <ModalWrapper>
             <div className="container">
                 <div className="row">
+                    <div onClick={closeModal} className='col' />
                     <div id="modal"
                         className="col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-5">
 
@@ -34,28 +58,40 @@ export default class Modal extends Component {
                         <h5>{Name}</h5>
                         <h5 className="text-muted">price: $ {Price}</h5>
                         <h5>Choose the quantity</h5>
-                        <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0">
-                            <div className="d-flex justify-content-center">
-                                <SliderButtonWrapper className=" mx-1"
-                                    onClick={() => decrement(id)}> -
-                            </SliderButtonWrapper>
-                                <span className=" mx-1">{count}</span>
-                                <SliderButtonWrapper className=" mx-1"
-                                    onClick={() => increment(id)}> +
-                            </SliderButtonWrapper>
+                        <div className="col-10 mx-auto col-lg-11 my-2 my-lg-1">
+                            <div className="d-flex" style={{ justifContent: 'space-evenly' }}>
+                                <div>
+                                    <SliderButtonWrapper className=" mx-1"
+                                        onClick={() => decrement(id)}> -
+                                </SliderButtonWrapper>
+                                    <span className=" mx-1">{info.tempCount}</span>
+                                    <SliderButtonWrapper className=" mx-1"
+                                        onClick={() => increment(id)}> +
+                                </SliderButtonWrapper>
+                                </div>
+                                <div>
+                                    <strong> Total Price: {info.tempCount * info.Price} </strong>
+                                </div>
                             </div>
                         </div>
                         <Link to='/'>
-                            <ButtonWrapper onClick={() => closeModal()}>
-                                store
-                                        </ButtonWrapper>
+                            <ButtonWrapper onClick={() => {
+                                addToCart(id);
+                                closeModal()
+                            }}>
+                                Add, keep shopping
+                            </ButtonWrapper>
                         </Link>
                         <Link to='/cart'>
-                            <ButtonWrapper onClick={() => closeModal()}>
-                                go to cart
-                                        </ButtonWrapper>
+                            <ButtonWrapper onClick={() => {
+                                addToCart(id);
+                                closeModal()
+                            }}>
+                                Add, go to cart
+                            </ButtonWrapper>
                         </Link>
                     </div>
+                    <div onClick={closeModal} className='col' />
                 </div>
             </div>
         </ModalWrapper>

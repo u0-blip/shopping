@@ -4,49 +4,47 @@ import { ProductListContext } from '../centralized_context';
 import styled from 'styled-components';
 
 export class Product extends Component {
-    static contextType = ProductListContext;
+  static contextType = ProductListContext;
 
-    render() {
-        const { id, Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.props.product;
-        return (
-            <ProductWrapper className="col-9 col-md-6 col-lg-3 my-3">
-                <div
-                    className="img-container p-5"
-                    onClick={() => this.context.handleDetail(Name)}
-                >
-                    <Link to={{ pathname: `/products/${id}` }}>
-                        <img src={image_url} alt="product" className="card-img-top" />
-                    </Link>
+  render() {
+    const { id, Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.props.product;
+    return (
+      <ProductWrapper className="col-9 col-md-6 col-lg-3 my-3">
+        <div
+          className="img-container p-5"
+        >
+          <Link to={{ pathname: `/products/${id}` }}>
+            <img src={image_url} alt="product" className="card-img-top" />
+          </Link>
 
-                    <button
-                        className="cart-btn"
-                        disabled={inCart ? true : false}
-                        onClick={() => {
-                            this.context.addToCart(Name);
-                            this.context.openModal(Name);
-                        }}
-                    >
-                        {inCart ? (
-                            <p className="text-capitalize mb-0" disabled>
-                                In Cart
-                            </p>
-                        ) : (
-                                <i className="fas fa-cart-plus" />
-                            )}
-                    </button>
-                </div>
-                <div className="card-footer d-flex justify-content-between">
-                    <p className="align-self-center mb-0">
-                        {Name}
-                    </p>
-                    <h5 className="text-blue font-italic mb-0">
-                        <span className="mr-1">$</span>
-                        {Price}
-                    </h5>
-                </div>
-            </ProductWrapper>
-        )
-    }
+          <button
+            className="cart-btn"
+            disabled={inCart ? true : false}
+            onClick={() => {
+              this.context.openModal(Name);
+            }}
+          >
+            {inCart ? (
+              <p className="text-capitalize mb-0" disabled>
+                In Cart
+              </p>
+            ) : (
+                <i className="fas fa-cart-plus" />
+              )}
+          </button>
+        </div>
+        <div className="card-footer d-flex justify-content-between">
+          <p className="align-self-center mb-0">
+            {Name}
+          </p>
+          <h5 className="text-blue font-italic mb-0">
+            <span className="mr-1">$</span>
+            {Price}
+          </h5>
+        </div>
+      </ProductWrapper>
+    )
+  }
 }
 
 export default Product
@@ -79,6 +77,7 @@ const ProductWrapper = styled.div`
       transition: all 1s linear;
       height:150px;
       width: auto;
+      object-fit: cover;
     }
     .img-container:hover .card-img-top{
       transform: scale(1.05);

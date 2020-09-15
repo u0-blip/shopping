@@ -13,10 +13,19 @@ class ContextProduct extends Component {
         cart: {
             '1984': {
                 count: 1,
+                Price: 25,
+                tempCount: 1
             },
             'Pride and Prejudice': {
                 count: 2,
+                Price: 25,
+                tempCount: 2
             },
+            'default': {
+                count: 0,
+                Price: 0,
+                tempCount: 1
+            }
         },
         cartPrice: {
             cartSubTotal: 0,
@@ -44,16 +53,63 @@ class ContextProduct extends Component {
         this.setState({ products: data_dict })
     }
 
-    handleDetail() {
+    createCartInstance = (id) => {
+        let instance = this.state.cart[id];
+        if (!instance) {
+            instance = JSON.parse(JSON.stringify(this.state.cart['default']))
+            let product = this.state.products[id];
+            instance.Price = product.Price;
 
+            this.setState(() => {
+                return { cart: { ...this.state.cart, [id]: instance } }
+            })
+        }
+        return instance;
     }
-    addToCart() {
 
+    addToCart = (id) => {
+        let product = this.state.products[id];
+        if (!product) {
+            return null
+        }
+
+        let instance = this.createCartInstance(id)
+        instance.count = instance.tempCount;
+
+        this.setState(() => {
+            return { cart: { ...this.state.cart, [id]: instance } }
+        })
+        this.updateTotals();
     }
+
+    updateTotals = () => {
+        let subTotal = 0;
+        for (const [key, instance] of Object.entries(this.state.cart)) {
+            subTotal += instance.count * instance.Price;
+        }
+
+        const tempTax = subTotal * 0.1;
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal;
+        subTotal = total - tax;
+        this.setState(() => {
+            return {
+                cartPrice: {
+                    cartSubTotal: subTotal,
+                    cartTax: tax,
+                    cartTotal: total
+                }
+            }
+        })
+    }
+
     openModal = (id) => {
         const product = this.state.products[id];
+        let instance = this.createCartInstance(id)
+        instance.tempCount = instance.count > 1 ? instance.count : 1;
+
         this.setState(() => {
-            return { modalProduct: product, modalOpen: true };
+            return { modalProduct: product, modalOpen: true, cart: { ...this.state.cart, [id]: instance } };
         })
     }
 
@@ -63,16 +119,36 @@ class ContextProduct extends Component {
         })
     }
 
-    increment() {
+    increment = (id) => {
+        let instance = this.createCartInstance(id)
+
+        instance.tempCount += 1;
+
+        this.setState(
+            () => {
+                return { cart: { ...this.state.cart, [id]: instance } };
+            }
+        );
+    }
+
+    decrement = (id) => {
+        let instance = this.createCartInstance(id)
+
+        if (instance.tempCount > 0) {
+            instance.tempCount -= 1;
+        }
+
+        this.setState(
+            () => {
+                return { cart: { ...this.state.cart, [id]: instance } };
+            }
+        );
+    }
+
+    removeFromCart = () => {
 
     }
-    decrement() {
-
-    }
-    removeFromCart() {
-
-    }
-    clearCart() {
+    clearCart = () => {
 
     }
     render() {
@@ -80,9 +156,9 @@ class ContextProduct extends Component {
             <ProductListContext.Provider value={
                 {
                     ...this.state,
-                    handleDetail: this.handleDetail,
                     addToCart: this.addToCart,
                     openModal: this.openModal,
+                    updateTotals: this.updateTotals,
                     closeModal: this.closeModal,
                     increment: this.increment,
                     decrement: this.decrement,
