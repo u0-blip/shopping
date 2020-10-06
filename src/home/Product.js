@@ -7,7 +7,7 @@ export class Product extends Component {
   static contextType = ProductListContext;
 
   render() {
-    const { id, Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.props.product;
+    const { id, Name, Price, image_url } = this.props.product;
     return (
       <ProductWrapper className="col-9 col-md-6 col-lg-3 my-3">
         <div

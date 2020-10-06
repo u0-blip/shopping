@@ -9,7 +9,7 @@ class CartItem extends Component {
         if (!this.props.item || this.props.info.count < 1) {
             return <div />
         }
-        const { id, Name, Descriptioin, Page_count, Characters, Author, Genres, image_url, inCart } = this.props.item;
+        const { id, Name, image_url } = this.props.item;
 
         const { count, Price } = this.props.info;
         const { increment, decrement, removeFromCart, addToCart } = this.context;

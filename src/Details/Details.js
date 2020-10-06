@@ -14,9 +14,9 @@ export class Details extends Component {
             return <div />
         }
 
-        const { Name, Descriptioin, Page_count, Characters, Author, Price, Genres, image_url, inCart } = this.context.products[id];
+        const { Name, Descriptioin, Page_count, Author, Price, Genres, image_url, inCart } = this.context.products[id];
 
-        const { addToCart, openModal, increment, decrement } = this.context;
+        const { addToCart, increment, decrement } = this.context;
         let info;
         if (this.context.cart[id] != null) {
             info = this.context.cart[id];

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import { ProductListContext } from '../centralized_context';
 
 export class CartTotals extends Component {
@@ -44,9 +43,24 @@ export class CartTotals extends Component {
                         </span>
                             <strong>${cartTotal}</strong>
                         </h5>
-                        <button>
-                            pay
-                        </button>
+                        {/* <PayPalButton
+                            amount={cartTotal}
+                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                            onSuccess={(details, data) => {
+                                alert("Transaction completed by " + details.payer.name.given_name);
+
+                                // OPTIONAL: Call your server to save the transaction
+                                return fetch("/paypal-transaction-complete", {
+                                    method: "post",
+                                    body: JSON.stringify({
+                                        orderId: data.orderID
+                                    })
+                                });
+                            }}
+                            options={{
+                                clientId: "PRODUCTION_CLIENT_ID"
+                            }}
+                        /> */}
                     </div>
                 </div>
             </div>

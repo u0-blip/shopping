@@ -10,7 +10,6 @@ export class Cart extends Component {
     static contextType = ProductListContext;
 
     render() {
-        const { cart } = this.context;
         return (
             <div className='container'>
                 <Title name="your" title="cart" />

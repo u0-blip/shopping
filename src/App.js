@@ -7,7 +7,7 @@ import Home from './home/Home';
 import Details from './Details/Details';
 import Cart from './Cart/Cart';
 import Axios from 'axios';
-import { ContextProduct, ContextShopping } from './centralized_context';
+import { ContextProduct } from './centralized_context';
 import NoFound from './404';
 
 
