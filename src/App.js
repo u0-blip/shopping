@@ -12,7 +12,7 @@ import NoFound from './404';
 
 
 function App() {
-  Axios.defaults.baseURL = process.env.SERVERIP;
+  Axios.defaults.baseURL = 'shopping.peterelectreng.com';
   console.log(Axios.defaults.baseURL)
 
   return (
