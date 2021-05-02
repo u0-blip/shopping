@@ -12,7 +12,7 @@ import NoFound from './404';
 
 
 function App() {
-  Axios.defaults.baseURL = 'http://localhost:3001';
+  Axios.defaults.baseURL = process.env.SERVERIP;
 
   return (
 
