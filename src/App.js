@@ -13,6 +13,7 @@ import NoFound from './404';
 
 function App() {
   Axios.defaults.baseURL = process.env.SERVERIP;
+  console.log(Axios.defaults.baseURL)
 
   return (
 
