@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { Component } from 'react'
 import { ButtonWrapper, SliderButtonWrapper } from '../buttonWrapper';
 import { ProductListContext } from '../centralized_context';
@@ -9,7 +10,7 @@ class CartItem extends Component {
         if (!this.props.item || this.props.info.count < 1) {
             return <div />
         }
-        const { id, Name, image_url } = this.props.item;
+        const { id, Name, img_type } = this.props.item;
 
         const { count, Price } = this.props.info;
         const { increment, decrement, removeFromCart, addToCart } = this.context;
@@ -18,7 +19,7 @@ class CartItem extends Component {
             <div className="row my-2 text-capitalize text-center">
                 <div className="col-10 mx-auto col-lg-2">
                     <img
-                        src={image_url}
+                        src={Axios.defaults.baseURL + '/' + encodeURIComponent(Name + img_type)}
                         style={{ width: "auto", height: "5rem" }}
                         className="image_url-fluid"
                         alt="product"

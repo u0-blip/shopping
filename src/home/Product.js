@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { ProductListContext } from '../centralized_context';
 import styled from 'styled-components';
+import Axios from 'axios';
 
 export class Product extends Component {
   static contextType = ProductListContext;
 
   render() {
-    const { id, Name, Price, image_url } = this.props.product;
+    console.log('what the fuck')
+    const { id, Name, Price, img_type } = this.props.product;
+    console.log('url ', encodeURIComponent(Axios.defaults.baseURL + Name + img_type))
     return (
       <ProductWrapper className="col-9 col-md-6 col-lg-3 my-3">
         <div
           className="img-container p-5"
         >
-          <img src={image_url} alt="product" className="card-img-top"
+          <img src={Axios.defaults.baseURL + '/' + encodeURIComponent(Name + img_type)} alt="product" className="card-img-top"
             onClick={() => {
               this.context.openModal(Name);
             }} />

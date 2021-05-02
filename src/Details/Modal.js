@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ButtonWrapper, SliderButtonWrapper } from '../buttonWrapper';
 import { ProductListContext } from '../centralized_context';
+import Axios from 'axios';
 
 export default class Modal extends Component {
     static contextType = ProductListContext;
@@ -35,7 +36,7 @@ export default class Modal extends Component {
             return null;
         }
 
-        const { id, image_url, Name, Price } = this.context.modalProduct;
+        const { id, Name, Price, img_type } = this.context.modalProduct;
 
         let info;
         if (this.context.cart[id] != null) {
@@ -52,7 +53,7 @@ export default class Modal extends Component {
                     <div id="modal"
                         className="col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-5">
 
-                        <img src={image_url} className="img-fluid" alt="product" />
+                        <img src={Axios.defaults.baseURL + '/' + encodeURIComponent(Name + img_type)} className="img-fluid" alt="product" />
                         <h5>{Name}</h5>
                         <h5 className="text-muted">price: $ {Price}</h5>
                         <h5>Choose the quantity</h5>

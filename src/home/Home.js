@@ -10,6 +10,8 @@ export class Home extends Component {
         var productRows = [];
         for (const [id, product] of Object.entries(this.context.products)) {
             productRows.push(<Product key={id} product={product} />)
+            console.log('all products ', this.context.products)
+            console.log('products', product)
         }
         return (
             <div className='container' style={{ justifyContent: "left" }}>

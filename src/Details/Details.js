@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { Component } from 'react';
 import { ButtonWrapper, SliderButtonWrapper } from '../buttonWrapper';
 import { ProductListContext } from '../centralized_context';
@@ -14,7 +15,7 @@ export class Details extends Component {
             return <div />
         }
 
-        const { Name, Descriptioin, Page_count, Author, Price, Genres, image_url, inCart } = this.context.products[id];
+        const { Name, Descriptioin, Page_count, Author, img_type, Price, Genres, inCart } = this.context.products[id];
 
         const { addToCart, increment, decrement } = this.context;
         let info;
@@ -28,7 +29,7 @@ export class Details extends Component {
                 <div className="row">
                     <div className="row">
                         <div className="col-10 mx-auto col-md-6 my-3 text-capitalize justify-content-end">
-                            <img src={image_url} style={{ maxHeight: '600px', marginLeft: '30px' }} className="img-fluid" alt="product" />
+                            <img src={Axios.defaults.baseURL + '/' + encodeURIComponent(Name + img_type)} style={{ maxHeight: '600px', marginLeft: '30px' }} className="img-fluid" alt="product" />
                         </div>
                         <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
                             <h2>Book name: {Name}</h2>
