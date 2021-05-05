@@ -12,7 +12,7 @@ import NoFound from './404';
 
 
 function App() {
-  Axios.defaults.baseURL = 'https://shopping.peterelectreng.com';
+  Axios.defaults.baseURL = 'https://shopping.tbitzz.com';
   Axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 
